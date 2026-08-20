@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+*.tsbuildinfo
+
+# secrets — nothing here reads env vars today, but never let one slip in later
+.env
+.env.*
+!.env.example
+
+# logs
+npm-debug.log*
+yarn-error.log*
+*.log
+
+# editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,182 @@
+@import '@fontsource-variable/archivo/wdth.css';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --void: #05070c;
+    --slab: #0b1220;
+    --ice: #56e9ff;
+    --signal: #ff3d9a;
+    --haze: #6b4dff;
+    --sodium: #ffb25c;
+    --vapor: #c9d6e4;
+    --mute: #6c7b8f;
+
+    --rail: 88px;
+    --gutter: clamp(20px, 4vw, 64px);
+
+    --z-canvas: 0;
+    --z-content: 10;
+    --z-hud: 40;
+    --z-overlay: 100;
+  }
+
+  html {
+    background-color: var(--void);
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--void);
+    color: var(--vapor);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Archivo's width axis is what makes it read as civic signage rather than a UI face. */
+  .font-display {
+    font-family: 'Archivo Variable', Archivo, system-ui, sans-serif;
+    font-stretch: 118%;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  ::selection {
+    background: rgba(86, 233, 255, 0.24);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ice);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: 700;
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer components {
+  /* Small uppercase mono metadata — the telemetry voice used throughout. */
+  .meta {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+
+  .meta-sm {
+    font-size: 9px;
+  }
+
+  /* Panels read as console surfaces: hairline border, low-alpha fill, no giant blur. */
+  .panel {
+    position: relative;
+    background: linear-gradient(180deg, rgba(8, 13, 24, 0.94), rgba(4, 6, 11, 0.96));
+    border: 1px solid rgba(108, 123, 143, 0.26);
+    backdrop-filter: blur(14px) saturate(115%);
+  }
+
+  .panel-corner::before,
+  .panel-corner::after {
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border: 1px solid rgba(86, 233, 255, 0.55);
+    pointer-events: none;
+  }
+
+  .panel-corner::before {
+    top: -1px;
+    left: -1px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  .panel-corner::after {
+    right: -1px;
+    bottom: -1px;
+    border-left: 0;
+    border-top: 0;
+  }
+
+  /* Legibility scrim for HUD text that floats directly over the city. */
+  .scrim {
+    text-shadow: 0 1px 10px rgba(5, 7, 12, 0.95), 0 0 3px rgba(5, 7, 12, 0.9);
+  }
+
+  .panel::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .panel::-webkit-scrollbar-thumb {
+    background: rgba(86, 233, 255, 0.35);
+  }
+
+  .panel::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(108, 123, 143, 0.4), rgba(108, 123, 143, 0));
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glow-ice {
+    text-shadow: 0 0 18px rgba(86, 233, 255, 0.45);
+  }
+
+  .glow-signal {
+    text-shadow: 0 0 18px rgba(255, 61, 154, 0.4);
+  }
+
+  .scanlines {
+    background-image: repeating-linear-gradient(
+      180deg,
+      rgba(201, 214, 228, 0.05) 0px,
+      rgba(201, 214, 228, 0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
